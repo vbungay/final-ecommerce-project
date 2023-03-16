@@ -32,9 +32,10 @@ const HomePage = () => {
       <div className='py-2 flex-1 flex items-center relative'>
         <img src={Background} className='ml-auto h-370 w-full lg:w-auto lg:h-600' alt='background' />
 
-        <div className='w-full h-full absolute flex items-center justify-center top-0 left-0 px-32 py-4'>
-          <div className='w-full lg:w-full p-2 bg-overlay backdrop-blur-md rounded-md flex items-center justify-center'>
-            <img src={Item} className='w-300 -mt-10 lg:w-full lg:-mt-20' alt='item-backdrop' />
+        <div className='w-450 lg:w-full h-full absolute flex items-center justify-center top-0 -left-16 lg:left-0 px-32 py-4'>
+          <div className='w-full p-4 bg-overlay backdrop-blur-md rounded-3xl flex flex-col items-center justify-center'>
+            <img src={Item} className='w-full -mt-10 lg:w-full lg:-mt-50' alt='item-backdrop' />
+            <p className='text-base font-semibold text-headingColor'>Get 30% off!</p>
           </div>
         </div>
       </div>
