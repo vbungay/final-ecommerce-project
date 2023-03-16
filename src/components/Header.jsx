@@ -89,7 +89,7 @@ const Header = () => {
                 >
                     <motion.img whileTap={{scale: 0.7}} 
                                 src={ user ? user.photoURL: Avatar } 
-                                className='w-8 min-w-[38px] h-8 min-h-[38px] rounded-full' 
+                                className='w-8 min-w-[38px] h-8 min-h-[38px] rounded-full cursor-pointer' 
                                 alt="user"
                                 referrerPolicy="no-referrer"
                                 onClick={handleLogin} 
@@ -139,7 +139,7 @@ const Header = () => {
                 >
                     <motion.img whileTap={{scale: 0.7}} 
                                 src={ user ? user.photoURL: Avatar } 
-                                className='w-8 min-w-[38px] h-8 min-h-[38px] rounded-full' 
+                                className='w-8 min-w-[38px] h-8 min-h-[38px] rounded-full cursor-pointer' 
                                 alt="user"
                                 referrerPolicy="no-referrer"
                                 onClick={handleLogin} 

@@ -1,7 +1,7 @@
 import React from 'react';
 import Sublogo from '../assets/Sublogo.png';
 import Background from '../assets/background.png';
-import Item from '../assets/Item.png'
+import { homeItem } from '../utils/products';
 
 const HomePage = () => {
   return (
@@ -33,10 +33,16 @@ const HomePage = () => {
         <img src={Background} className='ml-auto h-370 w-full lg:w-auto lg:h-600' alt='background' />
 
         <div className='w-450 lg:w-full h-full absolute flex items-center justify-center top-0 -left-16 lg:left-0 px-32 py-4'>
-          <div className='w-full p-4 bg-overlay backdrop-blur-md rounded-3xl flex flex-col items-center justify-center'>
-            <img src={Item} className='w-full -mt-10 lg:w-full lg:-mt-50' alt='item-backdrop' />
-            <p className='text-base font-semibold text-headingColor'>Get 30% off!</p>
+          { homeItem && homeItem.map(n => (
+            <div key={n.id} className='w-full p-4 bg-overlay backdrop-blur-md rounded-3xl flex flex-col items-center justify-center'>
+            <img src={n.imgSrc} className='w-full -mt-10 lg:w-full lg:-mt-50' alt='item-backdrop' />
+            <p className='font-bold text-headingColor text-xl mt-4'>{n.name}{" "}{n.description}</p>
+            <p className='text-sm text-textColor font-semibold'>
+              <span className='text-xs text-red-500'>$</span>
+              {n.price}
+            </p>
           </div>
+          )) }
         </div>
       </div>
     </section>
