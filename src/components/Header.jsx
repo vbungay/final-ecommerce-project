@@ -16,6 +16,7 @@ const Header = () => {
     const [{ user }, dispatch] = useStateValue();
     const [isMenu, setIsMenu] = useState(false);
 
+    //login function
     const handleLogin = async () => {
         if(!user) {
             const { user: {refreshToken, providerData} } = await signInWithPopup(firebaseAuth, provider)
@@ -27,6 +28,16 @@ const Header = () => {
         }else {
             setIsMenu(!isMenu);
         }
+    };
+
+    //logout function
+    const handleLogout = () => {
+        setIsMenu(false)
+        localStorage.clear()
+        dispatch({
+            type: actionType.SET_USER,
+            user: null
+        });
     };
 
   return (
@@ -55,6 +66,7 @@ const Header = () => {
                         About Us
                     </li>
                 </motion.ul>
+
                 {/* header cart */}
                 <motion.div
                     initial={{ opacity: 0, x: 150}}
@@ -67,6 +79,7 @@ const Header = () => {
                         <p className='text-xs text-white font-semibold'>1</p>
                     </div>
                 </motion.div>
+
                 {/* user avatar */}
                 <motion.div 
                     initial={{ opacity: 0, x: 150}}
@@ -85,7 +98,9 @@ const Header = () => {
                     {
                         isMenu && (
                             <motion.div className='flex flex-col w-40 bg-gray-50 shadow-xl rounded-lg absolute top-10 right-0'>
-                                <p className='px-4 py-2 flex items-center gap-3 cursoe-pointer hover:bg-slate-100 transition-all duration-100 ease-in-out text-textColor text-base'>
+                                <p className='px-4 py-2 flex items-center gap-3 cursoe-pointer hover:bg-slate-100 transition-all duration-100 ease-in-out text-textColor text-base'
+                                   onClick={handleLogout}
+                                >
                                     Logout <AiOutlineLogout />
                                 </p>
                             </motion.div>
@@ -95,11 +110,26 @@ const Header = () => {
             </div>
         </div>
         <div className='flex items-center justify-between md:hidden w-full h-full p-4'>
+            
+            {/* header cart */}
+            <motion.div
+                initial={{ opacity: 0, x: 150}}
+                animate={{ opacity: 1, x: 0}}
+                exit={{ opacity: 0, x: 150}}
+                className='relative flex items-center justify-center'
+            >
+                <BsFillCartPlusFill className='text-textColor text-2xl cursor-pointer' />
+                <div className='absolute -top-1 -right-2 w-5 h-5 flex items-center justify-center rounded-full bg-cartNotif'>
+                    <p className='text-xs text-white font-semibold'>1</p>
+                </div>
+            </motion.div>
+            
             {/* mobile view header logo */}
             <Link to={'/'} className='flex items-center gap-2'>
                 <img src={ Logo } className='w-20 object-cover' alt="logo" />
-                <p className='text-headingColor text-xl font-bold'>Shoe Ground</p>
+                <p className='text-headingColor text-xl font-bold hidden'>Shoe Ground</p>
             </Link>
+
             {/* mobile view user avatar */}
             <motion.div 
                     initial={{ opacity: 0, x: 150}}
@@ -134,7 +164,8 @@ const Header = () => {
                                         About Us
                                     </li>
                                 </ul>
-                                <p className='px-4 py-3 flex items-center gap-3 cursoe-pointer hover:bg-slate-100 transition-all duration-100 ease-in-out text-textColor text-base'>
+                                <p className='px-4 py-3 flex items-center gap-3 cursoe-pointer hover:bg-slate-100 transition-all duration-100 ease-in-out text-textColor text-base'
+                                   onClick={handleLogout}>
                                     Logout <AiOutlineLogout />
                                 </p>
                             </motion.div>
