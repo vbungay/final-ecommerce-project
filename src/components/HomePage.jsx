@@ -1,6 +1,7 @@
 import React from 'react';
 import Sublogo from '../assets/Sublogo.png';
 import Background from '../assets/background.png';
+import Item from '../assets/Item.png'
 
 const HomePage = () => {
   return (
@@ -28,10 +29,14 @@ const HomePage = () => {
         <button type="button" className='bg-gradient-to-br from-green-200 to-green-400 w-full md:w-auto p-4 px-4 py-2 rounded-lg hover:shadow-lg transition-all ease-in-out duration-100'>Shop Now</button>
 
       </div>
-      <div className='py-2 flex-1 flex items-center'>
-        <img src={Background} className='ml-auto h-370 w-full lg:h-600' alt='background' />
+      <div className='py-2 flex-1 flex items-center relative'>
+        <img src={Background} className='ml-auto h-370 w-full lg:w-auto lg:h-600' alt='background' />
 
-        <div className='w-auto h-full absolute flex items-center justify-center'></div>
+        <div className='w-full h-full absolute flex items-center justify-center top-0 left-0 px-32 py-4'>
+          <div className='w-full lg:w-full p-2 bg-overlay backdrop-blur-md rounded-md flex items-center justify-center'>
+            <img src={Item} className='w-300 -mt-10 lg:w-full lg:-mt-20' alt='item-backdrop' />
+          </div>
+        </div>
       </div>
     </section>
   )

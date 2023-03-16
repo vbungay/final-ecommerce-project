@@ -49,7 +49,8 @@ module.exports = {
         headingColor: "#272727",
         textColor: "#5A5A5A",
         cartNotif: "#EF233C",
-        primary: "#E9ECEF"
+        primary: "#E9ECEF",
+        overlay: "rgba(216, 243, 220, 0.3)"
       }
     },
   },
