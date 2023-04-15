@@ -26,7 +26,11 @@ const HomePage = () => {
           Our collection features a wide range of high-quality and stylish shoes, each carefully selected and guaranteed to be authentic.
         </p>
 
-        <button type="button" className='bg-gradient-to-br from-green-200 to-green-400 w-full md:w-auto p-4 px-4 py-2 rounded-lg hover:shadow-lg transition-all ease-in-out duration-100'>Shop Now</button>
+        <button type="button" 
+                className='bg-gradient-to-br from-green-200 to-green-400 w-full md:w-auto p-4 
+                           px-4 py-2 rounded-lg hover:shadow-lg transition-all ease-in-out duration-100'
+        >Shop Now
+        </button>
 
       </div>
       <div className='py-2 flex-1 flex items-center relative'>

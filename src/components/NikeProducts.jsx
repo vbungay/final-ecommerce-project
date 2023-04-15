@@ -3,15 +3,17 @@ import { motion } from 'framer-motion';
 import { IoBagAdd } from 'react-icons/io5';
 import '../custom.css';
 
-const NikeProducts = ({ product, flag }) => {
+const NikeProducts = ({ product, flag, onAddToCart }) => {
     return (
-        <div
-            className='w-275 h-[175px] min-w-[275px] md:w-300 md:min-w-[300px] bg-cardOverlay rounded-lg py-2 px-4 my-4 backdrop-blur-lg hover:drop-shadow-lg flex flex-col items-center justify-evenly relative'>
+        <div className='w-275 h-[175px] min-w-[275px] md:w-300 md:min-w-[300px] bg-cardOverlay rounded-lg 
+                        py-2 px-4 my-4 backdrop-blur-lg hover:drop-shadow-lg flex flex-col items-center justify-evenly relative'>
             <div className="w-full flex items-center justify-between">
                 <motion.div className="w-40 h-40 -mt-8 drop-shadow-2xl" whileHover={{ scale: 1.2 }}>
                     <img src={product.imageUrl} alt={product.title} className="w-40 h-40 object-contain" />
                 </motion.div>
-                <motion.div whileTap={{ scale: 0.75 }}
+                <motion.div 
+                    whileTap={{ scale: 0.75 }}
+                    onClick={() => onAddToCart(product)}
                     className="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center cursor-pointer hover:shadow-md -mt-8">
                     <IoBagAdd className="text-white" />
                 </motion.div>

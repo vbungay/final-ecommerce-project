@@ -9,17 +9,20 @@ import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { app } from '../firebase';
 import { useStateValue } from '../context/StateProvider';
 import { actionType } from '../context/reducer';
+import CartContainer from './CartContainer';
 
 const Header = () => {
     const firebaseAuth = getAuth(app);
     const provider = new GoogleAuthProvider();
-    const [{ user }, dispatch] = useStateValue();
+    const [{ user, cart }, dispatch] = useStateValue();
     const [isMenu, setIsMenu] = useState(false);
+    const [isCartVisible, setIsCartVisible] = useState(false);
+    const totalItems = cart ? cart.reduce((total, item) => total + item.quantity, 0) : 0;
 
     //login function
     const handleLogin = async () => {
         if(!user) {
-            const { user: {refreshToken, providerData} } = await signInWithPopup(firebaseAuth, provider)
+            const { user: { providerData } } = await signInWithPopup(firebaseAuth, provider)
             dispatch({
                 type: actionType.SET_USER,
                 user: providerData[0]
@@ -72,11 +75,12 @@ const Header = () => {
                     initial={{ opacity: 0, x: 150}}
                     animate={{ opacity: 1, x: 0}}
                     exit={{ opacity: 0, x: 150}}
+                    onClick={() => setIsCartVisible(!isCartVisible)}
                     className='relative flex items-center justify-center'
                 >
                     <BsFillCartPlusFill className='text-textColor text-2xl cursor-pointer' />
                     <div className='absolute -top-1 -right-2 w-5 h-5 flex items-center justify-center rounded-full bg-cartNotif'>
-                        <p className='text-xs text-white font-semibold'>1</p>
+                        <p className='text-xs text-white font-semibold'>{totalItems}</p>
                     </div>
                 </motion.div>
 
@@ -173,6 +177,7 @@ const Header = () => {
                     }
                 </motion.div>
         </div>
+        <CartContainer isVisible={isCartVisible} setIsVisible={setIsCartVisible} />
     </header>
   )
 }

@@ -2,12 +2,15 @@ import React, { useEffect, useState, forwardRef, useImperativeHandle, useRef } f
 import { getDownloadURL, ref as firebaseRef } from 'firebase/storage';
 import { collection, getDocs } from 'firebase/firestore';
 import { storage, firestore } from '../firebase';
+import { useStateValue } from '../context/StateProvider';
+import { actionType } from '../context/reducer';
 import { motion } from 'framer-motion';
 import { IoBagAdd } from 'react-icons/io5';
 
 const RowContainer = forwardRef(({ flag }, ref) => {
   const [products, setProducts] = useState([]);
   const scrollContainer = useRef(null);
+  const [, dispatch] = useStateValue();
 
   //Scrolling through the products
   useImperativeHandle(ref, () => ({
@@ -16,7 +19,7 @@ const RowContainer = forwardRef(({ flag }, ref) => {
     },
   }));
 
-  //Fetching products from firebase
+  //Fetching products
   const fetchProducts = async () => {
     const productsCollection = collection(firestore, 'products');
     const productsSnapshot = await getDocs(productsCollection);
@@ -27,6 +30,12 @@ const RowContainer = forwardRef(({ flag }, ref) => {
 
     return products;
   };
+
+  const addToCart = (product) => {
+    const cartItem = { ...product, quantity: 1 };
+    dispatch({ type: actionType.ADD_TO_CART, cartItem });
+  };
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -67,6 +76,7 @@ const RowContainer = forwardRef(({ flag }, ref) => {
             </motion.div>
             <motion.div
               whileTap={{ scale: 0.75 }}
+              onClick={() => addToCart(product)}
               className="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center cursor-pointer hover:shadow-md -mt-8">
               <IoBagAdd className="text-white" />
             </motion.div>
