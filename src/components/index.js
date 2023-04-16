@@ -5,3 +5,5 @@ export { default as Loader } from './Loader';
 export { default as RowContainer } from './RowContainer';
 export { default as FilterMenu } from './FilterMenu';
 export { default as CartContainer } from './CartContainer';
+export { default as AboutUs } from './AboutUs';
+export { default as ContactUs } from './ContactUs';
