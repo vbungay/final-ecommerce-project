@@ -22,7 +22,10 @@ const FilterMenu = () => {
     const handleAddToCart = (product) => {
         dispatch({
             type: actionType.ADD_TO_CART,
-            cartItem: product,
+            cartItem: {
+                ...product,
+                quantity: 1,
+            },
         });
     };
 
@@ -73,6 +76,7 @@ const FilterMenu = () => {
         setState(products.map((product, index) => ({ ...product, imageUrl: imageUrls[index] })));
     };
 
+    //Filtering items by brand
     useEffect(() => {
         fetchJordanProducts().then((products) => {
             fetchImages(products, setJordanProducts);
@@ -150,6 +154,7 @@ const FilterMenu = () => {
                             </p>
                         </div>
                     </div>
+                    {/*Diplays Products by brand*/}
                     <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-3 row-gap-1 my-12">
                         {selectedCategory === "jordan" &&
                             jordanProducts.map((product, index) => (

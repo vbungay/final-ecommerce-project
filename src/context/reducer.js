@@ -1,6 +1,7 @@
 import { addDoc, collection } from 'firebase/firestore';
 import { firestore } from '../firebase';
 
+//Saving products to firebase db
 const saveCartToDatabase = async (cart) => {
     try {
         const cartCollection = collection(firestore, 'cart');
@@ -10,6 +11,7 @@ const saveCartToDatabase = async (cart) => {
     }
 };
 
+//different types of actions that are being dispatched using reducer.
 export const actionType = {
     SET_USER: 'SET_USER',
     ADD_TO_CART: 'ADD_TO_CART',
@@ -25,19 +27,22 @@ const reducer = (state, action) => {
                 ...state,
                 user: action.user,
             };
+        //Adds an item to the shopping cart by creating a new array
         case actionType.ADD_TO_CART:
-            const currentCart = state.cart || []; // Ensure cart is an array
+            const currentCart = state.cart || [];
             const updatedCart = [...currentCart, action.cartItem];
             saveCartToDatabase(updatedCart);
             return {
                 ...state,
                 cart: updatedCart,
             };
+        //Clears the shopping cart by setting the cart property of the state object to an empty array.
         case 'CLEAR_CART':
             return {
                 ...state,
                 cart: [],
             };
+        //Increments the quantity of a cart item by one. The updated cart is then saved
         case actionType.INCREMENT_QUANTITY:
             const updatedIncrementCart = state.cart.map((item, index) => {
                 if (index === action.index) {
@@ -50,6 +55,7 @@ const reducer = (state, action) => {
                 ...state,
                 cart: updatedIncrementCart,
             };
+        //Deccrements the quantity of a cart item by one. The updated cart is then saved
         case actionType.DECREMENT_QUANTITY:
             const updatedDecrementCart = state.cart.map((item, index) => {
                 if (index === action.index && item.quantity > 1) {

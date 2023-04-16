@@ -9,10 +9,12 @@ import { collection, addDoc, deleteDoc, } from 'firebase/firestore';
 const CartContainer = ({ isVisible, setIsVisible }) => {
     const [{ cart = [] }, dispatch] = useStateValue();
 
+    //Increase qty
     const incrementQuantity = (index) => {
         dispatch({ type: 'INCREMENT_QUANTITY', index });
     };
 
+    //Decrease qty
     const decrementQuantity = (index) => {
         if (cart[index].quantity > 1) {
             dispatch({ type: 'DECREMENT_QUANTITY', index });
@@ -21,19 +23,20 @@ const CartContainer = ({ isVisible, setIsVisible }) => {
         }
     };
 
+    // Remove all items from the cart in the context
     const clearCart = async () => {
-        // Remove all items from the cart in the context
         dispatch({ type: 'CLEAR_CART' });
 
         // Remove all items from the 'cart' collection in Firestore
         try {
             const cartCollection = collection(firestore, 'cart');
-            await deleteDoc(cartCollection); // Make sure you import 'deleteDoc' from 'firebase/firestore'
+            await deleteDoc(cartCollection);
         } catch (error) {
             console.error('Error clearing cart from the database:', error);
         }
     };
 
+    //Save items to db as we add
     useEffect(() => {
         if (cart.length > 0) {
             const saveCartToDatabase = async () => {
@@ -47,6 +50,7 @@ const CartContainer = ({ isVisible, setIsVisible }) => {
             saveCartToDatabase();
         }
     }, [cart]);
+
     return (
         isVisible && (
             <div className="fixed top-0 right-0 w-full md:w-375 h-screen bg-white drop-shadow-md flex flex-col z-[101]">
@@ -72,7 +76,7 @@ const CartContainer = ({ isVisible, setIsVisible }) => {
             <div className="w-full h-full bg-green-200 rounded-t-[2rem] flex flex-col">
                 {cart.map((item, index) => (
                     <div key={index} className="w-full p-1 px-2 rounded-lg flex items-center gap-2 my-4">
-                        {/*Product Image here*/}
+                        {/*Product Image*/}
                         <img src={item.imageUrl} alt={`Product ${index + 1}`} className="w-16 h-16 object-contain" />
                         <div className="flex flex-col gap-2">
                             <p className="text-base text-headingColor">
@@ -83,14 +87,14 @@ const CartContainer = ({ isVisible, setIsVisible }) => {
                             </p>
                         </div>
                         <div className="group flex items-center gap-2 ml-auto cursor-pointer">
-                            {/*Product Decrement here*/}
+                            {/*Product Decrement*/}
                             <motion.div whileTap={{ scale: 0.75 }} onClick={() => decrementQuantity(index)}>
                                 <BiMinus className="text-textColor" />
                             </motion.div>
                             <p className="w-5 h-5 rounded-sm text-textColor flex items-center justify-center">
-                                {item.quantity || 1} {/*Product Quantity here*/}
+                                {item.quantity || 1} {/*Product Quantity*/}
                             </p>
-                            {/*Product Increment here*/}
+                            {/*Product Increment*/}
                             <motion.div whileTap={{ scale: 0.75 }} onClick={() => incrementQuantity(index)}>
                                 <BiPlus className="text-textColor" />
                             </motion.div>

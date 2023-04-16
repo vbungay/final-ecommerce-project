@@ -36,7 +36,7 @@ const RowContainer = forwardRef(({ flag }, ref) => {
     dispatch({ type: actionType.ADD_TO_CART, cartItem });
   };
 
-
+  //Fetching item's imgURL from db
   useEffect(() => {
     const fetchData = async () => {
       const productsData = await fetchProducts();
